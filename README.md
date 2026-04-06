@@ -1,81 +1,69 @@
 # kubernetes
 
-Docker Desktop Kubernetes에서 Spring Boot와 MySQL을 붙여본 실습 기록이다.
+쿠버네티스 기본 개념과 흐름을 익히기 위해 정리한 실습 저장소다.
 
 ## 구조
+
+```text
+[Deployment]
+   |
+   v
+[ReplicaSet]
+   |
+   v
+[Pod]
+```
 
 ```text
 [사용자]
    |
    v
-[spring-service : 30000]
+[Service]
    |
    v
-[spring pod x3]
-   |
-   v
-[mysql-service : 30002]
-   |
-   v
-[mysql pod x1]
-   |
-   v
-[PVC]
-   |
-   v
-[PV]
+[Pod]
 ```
-
-## 핵심
 
 ```text
-ClusterIP
--> 쿠버 내부 통신용
-
-NodePort
--> 외부에서 붙기 위한 포트
-
-Deployment
--> 파드 개수와 롤링업데이트 관리
-
-ReplicaSet
--> 파드를 실제로 유지
-
-PVC / PV
--> 파드가 다시 떠도 MySQL 데이터 유지
+[ConfigMap / Secret]
+          |
+          v
+        [Pod]
 ```
 
-## 확인한 것
-
-- Spring이 서비스 이름 `mysql-service`로 MySQL에 연결되는 흐름을 확인했다.
-- NodePort, port, targetPort 차이를 확인했다.
-- MySQL을 PVC/PV에 붙였을 때 파드 재기동 후 데이터가 남는 것을 확인했다.
-- Docker Desktop Kubernetes에서 `EOF`, `cpuset` 문제를 복구했다.
-
-## 실행
-
-### MySQL
-
-```powershell
-cd mysql-project
-kubectl apply -f .
+```text
+[Pod]
+  |
+  v
+[PVC]
+  |
+  v
+[PV]
+  |
+  v
+[Storage]
 ```
 
-### Spring
+## 익힌 것
 
-```powershell
-cd demo
-./gradlew.bat build
-docker build -t spring-server .
-kubectl apply -f .
-```
+- Deployment가 Pod를 직접 관리하는 게 아니라 ReplicaSet을 통해 관리한다.
+- Service는 Pod 앞단에서 트래픽을 받는 진입점이다.
+- ClusterIP는 클러스터 내부 통신용이고 NodePort는 외부 접속용이다.
+- ConfigMap과 Secret으로 설정값을 Pod에 넣을 수 있다.
+- PVC와 PV를 사용하면 Pod가 다시 떠도 데이터를 유지할 수 있다.
+
+## 실습에 사용한 것
+
+- Spring Boot
+- MySQL
+- Docker Desktop Kubernetes
 
 ## 폴더
 
 ```text
 demo
--> Spring Boot 앱 + Kubernetes 매니페스트
+-> Spring Boot 앱과 Kubernetes 매니페스트
 
 mysql-project
--> MySQL + PV/PVC + Service 매니페스트
+-> MySQL, Service, PV/PVC 매니페스트
 ```
