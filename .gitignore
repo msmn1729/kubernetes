@@ -1,0 +1,10 @@
+.idea/
+.vscode/
+scripts/
+docker-desktop-current-ca.crt
+tmp-kube-ca.crt
+
+demo/.gradle/
+demo/build/
+
+*.log
