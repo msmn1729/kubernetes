@@ -1,38 +1,68 @@
-# Kubernetes Study Workspace
+# kubernetes
 
-Docker Desktop Kubernetes 환경에서 `Spring Boot + MySQL` 구성을 실습한 기록용 저장소입니다.
+Docker Desktop Kubernetes에서 Spring Boot와 MySQL을 붙여본 실습 기록이다.
 
-## Included Projects
+## 구조
 
-### `mysql-project`
-- MySQL Deployment
-- Service(NodePort)
-- ConfigMap / Secret
-- PV / PVC 기반 데이터 영속성 실습
+```text
+[사용자]
+   |
+   v
+[spring-service : 30000]
+   |
+   v
+[spring pod x3]
+   |
+   v
+[mysql-service : 30002]
+   |
+   v
+[mysql pod x1]
+   |
+   v
+[PVC]
+   |
+   v
+[PV]
+```
 
-### `demo`
-- Spring Boot API
-- Docker image build
-- Kubernetes Deployment / Service
-- ConfigMap / Secret 기반 DB 연결
+## 핵심
 
-## What I Verified
+```text
+ClusterIP
+-> 쿠버 내부 통신용
 
-- `NodePort`, `ClusterIP`, `targetPort` 차이
-- `Deployment -> ReplicaSet -> Pod` 관계
-- MySQL을 PVC에 연결했을 때 파드 재기동 후 데이터 유지
-- Spring Boot가 Kubernetes 내부 Service 이름으로 MySQL에 연결되는 흐름
-- Docker Desktop Kubernetes 장애(`EOF`, `cpuset`) 복구 과정
+NodePort
+-> 외부에서 붙기 위한 포트
 
-## Run Order
+Deployment
+-> 파드 개수와 롤링업데이트 관리
+
+ReplicaSet
+-> 파드를 실제로 유지
+
+PVC / PV
+-> 파드가 다시 떠도 MySQL 데이터 유지
+```
+
+## 확인한 것
+
+- Spring이 서비스 이름 `mysql-service`로 MySQL에 연결되는 흐름을 확인했다.
+- NodePort, port, targetPort 차이를 확인했다.
+- MySQL을 PVC/PV에 붙였을 때 파드 재기동 후 데이터가 남는 것을 확인했다.
+- Docker Desktop Kubernetes에서 `EOF`, `cpuset` 문제를 복구했다.
+
+## 실행
 
 ### MySQL
+
 ```powershell
 cd mysql-project
 kubectl apply -f .
 ```
 
 ### Spring
+
 ```powershell
 cd demo
 ./gradlew.bat build
@@ -40,8 +70,12 @@ docker build -t spring-server .
 kubectl apply -f .
 ```
 
-## Notes
+## 폴더
 
-- 실습 환경은 Docker Desktop 단일 노드 Kubernetes 클러스터입니다.
-- MySQL은 `hostPath` 기반 PV/PVC로 연결해 재기동 후 데이터 유지 여부를 확인했습니다.
-- Spring은 `spring-config.yaml`, `spring-secret.yaml`을 통해 DB 연결 정보를 주입합니다.
+```text
+demo
+-> Spring Boot 앱 + Kubernetes 매니페스트
+
+mysql-project
+-> MySQL + PV/PVC + Service 매니페스트
+```
