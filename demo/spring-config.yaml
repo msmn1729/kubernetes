@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: spring-config
+
+data:
+  db-host: mysql-service
+  db-port: "3306"
+  db-name: kub-practice
