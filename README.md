@@ -7,6 +7,8 @@
 - 로컬 Docker Desktop Kubernetes 실습
 - MySQL PV/PVC 기반 구성
 - Spring Boot + MySQL 연동용 매니페스트
+- Spring Boot 게시판 예제 백엔드 소스와 Dockerfile
+- Spring Boot + MySQL 연동용 분리형 Kubernetes 매니페스트
 - AWS EC2 위 `k3s` 실습용 Nginx Deployment/Service 매니페스트
 
 ## 디렉터리
@@ -22,6 +24,16 @@
 │  ├─ spring-config.yaml
 │  ├─ spring-secret.yaml
 │  └─ Dockerfile
+├─ kubernetes-backend/
+│  ├─ Dockerfile
+│  └─ src/main/
+│     ├─ java/com/example/demo/
+│     └─ resources/application.yml
+├─ kubernetes-manifests/
+│  ├─ spring-deployment.yaml
+│  ├─ spring-service.yaml
+│  ├─ spring-config.yaml
+│  └─ spring-secret.yaml
 └─ mysql-project/
    ├─ mysql-deployment.yaml
    ├─ mysql-service.yaml
