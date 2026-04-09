@@ -40,6 +40,12 @@
 |  +----------------------+                                    |
 |                                                              |
 |  +----------------------+                                    |
+|  | study/               | --> curriculum-based study notes   |
+|  | - roadmap            | --> topic-by-topic practice log    |
+|  | - daily template     |                                    |
+|  +----------------------+                                    |
+|                                                              |
+|  +----------------------+                                    |
 |  | demo/                | --> earlier single-folder example  |
 |  +----------------------+                                    |
 |                                                              |
@@ -52,6 +58,7 @@
 - `kubernetes-manifests/`: Spring 앱용 Deployment, Service, ConfigMap, Secret
 - `mysql-project/`: MySQL Deployment, Service, PV, PVC
 - `aws/`: EC2 `k3s` 환경에서 Nginx를 띄우는 최소 실습 예제
+- `study/`: 강의 커리큘럼 기준으로 쪼갠 학습 노트와 기록 템플릿
 - `demo/`: 초기에 정리한 단일 폴더형 예제
 
 ## 디렉터리
@@ -77,6 +84,17 @@
 │  ├─ spring-service.yaml
 │  ├─ spring-config.yaml
 │  └─ spring-secret.yaml
+├─ study/
+│  ├─ README.md
+│  ├─ 01-kubernetes-overview.md
+│  ├─ 02-pod-nginx-spring.md
+│  ├─ 03-deployment-service.md
+│  ├─ 04-configmap-secret.md
+│  ├─ 05-volume-mysql.md
+│  ├─ 06-ec2-k3s-nginx.md
+│  ├─ 07-spring-rds-ecr-k3s.md
+│  ├─ 08-eks-basics.md
+│  └─ _daily-template.md
 └─ mysql-project/
    ├─ mysql-deployment.yaml
    ├─ mysql-service.yaml
@@ -85,6 +103,19 @@
    ├─ mysql-pv.yaml
    └─ mysql-pvc.yaml
 ```
+
+## 학습 트랙
+
+- [study/README.md](study/README.md): 전체 로드맵과 학습 순서
+- [01-kubernetes-overview.md](study/01-kubernetes-overview.md): 쿠버네티스 개념, Docker Desktop 로컬 셋업
+- [02-pod-nginx-spring.md](study/02-pod-nginx-spring.md): Pod, Nginx, Spring Boot, 이미지 풀 정책
+- [03-deployment-service.md](study/03-deployment-service.md): Deployment, Service, scaling, self-healing, rolling update
+- [04-configmap-secret.md](study/04-configmap-secret.md): 환경 변수 분리, ConfigMap, Secret
+- [05-volume-mysql.md](study/05-volume-mysql.md): Volume, PV/PVC, MySQL 연동
+- [06-ec2-k3s-nginx.md](study/06-ec2-k3s-nginx.md): EC2, k3s, Nginx NodePort 실습
+- [07-spring-rds-ecr-k3s.md](study/07-spring-rds-ecr-k3s.md): Spring Boot 빌드, ECR push, RDS, k3s 배포
+- [08-eks-basics.md](study/08-eks-basics.md): EKS 기본 구조와 배포 흐름
+- [_daily-template.md](study/_daily-template.md): 실제 공부할 때 복제해서 쓰는 기록 템플릿
 
 ## 실행 흐름
 
