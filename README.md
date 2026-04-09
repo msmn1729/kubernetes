@@ -104,19 +104,34 @@
    └─ mysql-pvc.yaml
 ```
 
-## 학습 트랙
+## 최근 한 달 학습 요약
 
-- [study/README.md](study/README.md): 전체 로드맵과 학습 순서
-- [01-kubernetes-overview.md](study/01-kubernetes-overview.md): 쿠버네티스 개념, Docker Desktop 로컬 셋업
-- [02-pod-nginx-spring.md](study/02-pod-nginx-spring.md): Pod, Nginx, Spring Boot, 이미지 풀 정책
-- [03-deployment-service.md](study/03-deployment-service.md): Deployment, Service, scaling, self-healing, rolling update
-- [04-configmap-secret.md](study/04-configmap-secret.md): 환경 변수 분리, ConfigMap, Secret
-- [05-volume-mysql.md](study/05-volume-mysql.md): Volume, PV/PVC, MySQL 연동
-- [06-ec2-k3s-nginx.md](study/06-ec2-k3s-nginx.md): EC2, k3s, Nginx NodePort 실습
-- [07-spring-rds-ecr-k3s.md](study/07-spring-rds-ecr-k3s.md): Spring Boot 빌드, ECR push, RDS, k3s 배포
-- [08-eks-basics.md](study/08-eks-basics.md): EKS 기본 구조와 배포 흐름
-- [09-monthly-kubernetes-summary.md](study/09-monthly-kubernetes-summary.md): 최근 한 달 기준 쿠버네티스 학습 정리
-- [_daily-template.md](study/_daily-template.md): 실제 공부할 때 복제해서 쓰는 기록 템플릿
+```text
++-------------------+     +--------------------+     +-------------------+
+| Local Kubernetes  | --> | Spring + MySQL     | --> | AWS deployment    |
+| Docker Desktop    |     | manifests split    |     | EC2 / k3s / ECR   |
++-------------------+     +--------------------+     +-------------------+
+         |                            |                           |
+         v                            v                           v
++-------------------+     +--------------------+     +-------------------+
+| Pod basics        |     | ConfigMap/Secret   |     | RDS / image push  |
+| Deployment        |     | PV / PVC           |     | NodePort access   |
++-------------------+     +--------------------+     +-------------------+
+```
+
+- 로컬 Docker Desktop Kubernetes로 개념과 명령어 흐름을 익힘
+- Spring Boot 앱과 MySQL을 분리된 매니페스트 구조로 정리
+- ConfigMap, Secret, PV, PVC를 통해 앱 설정과 데이터 저장소 흐름을 분리
+- EC2 `k3s` 환경에서 Nginx NodePort 실습을 진행
+- Spring Boot + ECR + RDS + `k3s` 배포 흐름을 다음 실습 축으로 잡음
+- EKS는 관리형 Kubernetes 구조를 이해하는 다음 단계 주제로 확보
+
+## 다음 공부 우선순위
+
+1. Spring Boot + MySQL 로컬 쿠버 연동을 끝까지 재현
+2. ECR push와 `k3s` pull 권한 흐름을 실제로 다시 정리
+3. RDS 연결 시 환경 변수와 Secret 구조를 매니페스트에 고정
+4. EKS는 마지막에 구조 이해 중심으로 정리
 
 ## 실행 흐름
 
