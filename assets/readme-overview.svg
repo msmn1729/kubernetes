@@ -1,0 +1,79 @@
+<svg width="1280" height="820" viewBox="0 0 1280 820" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1280" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7FAFC"/>
+      <stop offset="1" stop-color="#EEF4FF"/>
+    </linearGradient>
+    <marker id="arrowBlue" markerWidth="14" markerHeight="14" refX="12" refY="7" orient="auto">
+      <path d="M0 0L14 7L0 14V0Z" fill="#2B6CB0"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="14" markerHeight="14" refX="12" refY="7" orient="auto">
+      <path d="M0 0L14 7L0 14V0Z" fill="#2F855A"/>
+    </marker>
+    <style>
+      .title { font: 700 34px "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; fill: #102A43; }
+      .subtitle { font: 500 18px "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; fill: #486581; }
+      .box-title { font: 700 24px "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; fill: #102A43; }
+      .box-main { font: 700 22px "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; fill: #102A43; }
+      .box-sub { font: 500 17px "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; fill: #334E68; }
+      .folder { font: 700 21px Consolas, "Courier New", monospace; fill: #0F172A; }
+      .small { font: 500 15px "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; fill: #486581; }
+    </style>
+  </defs>
+
+  <rect width="1280" height="820" rx="28" fill="url(#bg)"/>
+
+  <text x="64" y="78" class="title">kubernetes repository overview</text>
+  <text x="64" y="114" class="subtitle">백엔드 코드, 매니페스트, DB, AWS 실습 흐름이 한 번에 보이도록 정리한 구조</text>
+
+  <rect x="64" y="160" width="300" height="180" rx="24" fill="#E6F0FF" stroke="#2B6CB0" stroke-width="3"/>
+  <text x="96" y="214" class="folder">kubernetes-backend/</text>
+  <text x="96" y="256" class="box-sub">Spring Boot API</text>
+  <text x="96" y="288" class="box-sub">Dockerfile</text>
+  <text x="96" y="320" class="box-sub">build/libs/*.jar</text>
+
+  <rect x="432" y="160" width="356" height="180" rx="24" fill="#E8FFF4" stroke="#2F855A" stroke-width="3"/>
+  <text x="464" y="214" class="folder">kubernetes-manifests/</text>
+  <text x="464" y="256" class="box-sub">Deployment</text>
+  <text x="464" y="288" class="box-sub">Service</text>
+  <text x="464" y="320" class="box-sub">ConfigMap / Secret</text>
+
+  <rect x="858" y="128" width="358" height="260" rx="30" fill="#FFFFFF" stroke="#1F2937" stroke-width="4"/>
+  <text x="894" y="188" class="box-title">쿠버네티스 클러스터</text>
+  <rect x="894" y="220" width="286" height="60" rx="18" fill="#EFF6FF"/>
+  <text x="926" y="258" class="box-main">Service / NodePort</text>
+  <rect x="894" y="298" width="286" height="60" rx="18" fill="#F0FDF4"/>
+  <text x="926" y="336" class="box-main">backend-app Pods</text>
+
+  <rect x="432" y="430" width="356" height="188" rx="24" fill="#FFF7E6" stroke="#DD6B20" stroke-width="3"/>
+  <text x="464" y="484" class="folder">mysql-project/</text>
+  <text x="464" y="526" class="box-sub">MySQL Deployment</text>
+  <text x="464" y="558" class="box-sub">Service</text>
+  <text x="464" y="590" class="box-sub">PV / PVC</text>
+
+  <rect x="64" y="430" width="300" height="188" rx="24" fill="#FFF1F2" stroke="#E11D48" stroke-width="3"/>
+  <text x="96" y="484" class="folder">aws/</text>
+  <text x="96" y="526" class="box-sub">EC2 + k3s</text>
+  <text x="96" y="558" class="box-sub">Nginx practice</text>
+  <text x="96" y="590" class="box-sub">NodePort access</text>
+
+  <rect x="858" y="450" width="170" height="150" rx="22" fill="#FFFFFF" stroke="#7C3AED" stroke-width="3"/>
+  <text x="888" y="500" class="folder">study/</text>
+  <text x="888" y="540" class="small">학습 노트</text>
+  <text x="888" y="570" class="small">정리 문서</text>
+
+  <rect x="1046" y="450" width="170" height="150" rx="22" fill="#FFFFFF" stroke="#0891B2" stroke-width="3"/>
+  <text x="1076" y="500" class="folder">demo/</text>
+  <text x="1076" y="540" class="small">초기 예제</text>
+  <text x="1076" y="570" class="small">단일 폴더 버전</text>
+
+  <path d="M364 250H412" stroke="#2B6CB0" stroke-width="4" marker-end="url(#arrowBlue)"/>
+  <path d="M788 250H838" stroke="#2F855A" stroke-width="4" marker-end="url(#arrowGreen)"/>
+  <path d="M1037 388V428H610V410" stroke="#2F855A" stroke-width="4" marker-end="url(#arrowGreen)"/>
+
+  <rect x="556" y="676" width="168" height="44" rx="16" fill="#102A43"/>
+  <text x="587" y="705" style="font:700 18px 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; fill:#FFFFFF;">앱과 DB 연결</text>
+
+  <rect x="64" y="690" width="1152" height="82" rx="24" fill="#FFFFFF" stroke="#D9E2EC" stroke-width="2"/>
+  <text x="98" y="738" class="box-sub">Spring Boot 코드를 만들고 → 매니페스트로 배포하고 → Pod가 MySQL과 연결되고 → AWS 폴더로 배포 실습을 확장하는 구조</text>
+</svg>
