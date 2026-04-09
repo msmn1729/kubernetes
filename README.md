@@ -115,6 +115,7 @@
 - [06-ec2-k3s-nginx.md](study/06-ec2-k3s-nginx.md): EC2, k3s, Nginx NodePort 실습
 - [07-spring-rds-ecr-k3s.md](study/07-spring-rds-ecr-k3s.md): Spring Boot 빌드, ECR push, RDS, k3s 배포
 - [08-eks-basics.md](study/08-eks-basics.md): EKS 기본 구조와 배포 흐름
+- [09-monthly-kubernetes-summary.md](study/09-monthly-kubernetes-summary.md): 최근 한 달 기준 쿠버네티스 학습 정리
 - [_daily-template.md](study/_daily-template.md): 실제 공부할 때 복제해서 쓰는 기록 템플릿
 
 ## 실행 흐름
