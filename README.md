@@ -65,7 +65,8 @@ Spring Boot, MySQL, Kubernetes, AWS 배포 구성을 정리한 저장소.
 - 컨테이너 실행 기본 단위, 하나 이상의 컨테이너를 감싸는 가장 작은 배포 단위
 - 네트워크, 스토리지 네임스페이스 공유
 - Nginx, Spring Boot 예제로 구성 확인
-- Pod 는 직접 관리 대상이라기보다 Deployment 같은 상위 리소스로 다루는 흐름이 실무에서 더 자연스럽다.
+- Pod 는 직접 하나씩 관리하기보다 상위 리소스인 Deployment 기준으로 다루는 흐름이 더 자연스럽다.
+- 같은 Pod 안 컨테이너들은 localhost 기준으로 통신할 수 있어서 사이드카 패턴 이해에도 연결된다.
 - 컨테이너가 떠 있어도 외부 접속이 바로 되는 것은 아니며, describe, logs, exec 는 디버깅의 기본이다.
 
 ### Deployment
@@ -73,14 +74,16 @@ Spring Boot, MySQL, Kubernetes, AWS 배포 구성을 정리한 저장소.
 - replicas 기준 Pod 수 유지, 원하는 상태를 선언하는 관리자 역할
 - 장애 발생 시 ReplicaSet 을 통해 자동으로 Pod 재생성 (self-healing)
 - 이미지 변경 시 롤링 업데이트 적용으로 무중단 배포 가능
-- 실제로는 ReplicaSet 을 통해 Pod 를 유지하므로, Deployment 는 원하는 상태를 선언하는 관리자에 가깝다.
+- 실제로는 ReplicaSet 을 통해 Pod 가 유지되므로, Deployment 는 원하는 상태를 선언하는 관리자에 가깝다.
+- 이미지 태그를 바꾸면 새 버전 Pod 를 순차적으로 올리고 기존 Pod 를 줄이는 식으로 업데이트가 진행된다.
 
 ### Service
 
 - Pod 교체와 무관한 고정 접근 지점 제공
 - ClusterIP: 클러스터 내부 통신, NodePort: 외부 접근으로 용도별 선택 가능
 - Service 이름으로 DNS 자동 등록되어 Pod 이름이나 IP 변경과 무관하게 안정적 통신
-- Pod IP 는 바뀔 수 있으므로, 애플리케이션 간 통신은 Pod 주소보다 Service 이름 기준으로 보는 편이 훨씬 안정적이다.
+- Pod IP 는 바뀔 수 있으므로 애플리케이션 간 통신은 Pod 주소보다 Service 이름 기준으로 이해하는 편이 훨씬 안정적이다.
+- Service 가 트래픽을 여러 Pod 로 분산해 주기 때문에 replicas 증가와 연결해서 보면 이해가 더 잘 된다.
 
 ```text
 +-------------+     +------------------+     +------------------+
@@ -100,6 +103,8 @@ Spring Boot, MySQL, Kubernetes, AWS 배포 구성을 정리한 저장소.
 - PV: 실제 저장소 자원
 - PVC: 저장소 요청 인터페이스
 - MySQL 데이터 유지 구성에 사용
+- Pod 가 재생성되어도 PVC 를 통해 같은 저장소에 다시 연결되면 데이터가 유지된다.
+- 상태 저장 워크로드는 Deployment 만 보는 것보다 스토리지 연결 방식까지 같이 봐야 흐름이 잡힌다.
 
 ### Docker / ECR
 
