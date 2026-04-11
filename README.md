@@ -153,3 +153,10 @@ kubectl get deploy
 kubectl get pods
 kubectl get svc
 ```
+
+
+## 추가로 정리한 이해 포인트
+
+- Pod 는 실행 단위, Deployment 는 관리 단위, Service 는 접근 단위로 나눠서 보면 헷갈림이 줄어든다.
+- Spring Boot 와 MySQL 연결은 결국 애플리케이션 설정, Kubernetes 리소스, 네트워크 개념이 같이 맞물려야 이해된다.
+- 로컬 실습에서는 NodePort 로 외부 접근 흐름을 확인하고, 내부 통신은 Service 이름으로 보는 방식이 가장 이해하기 쉬웠다.
