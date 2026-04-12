@@ -70,16 +70,16 @@ Spring Boot, MySQL, Kubernetes, AWS 배포 구성을 정리한 저장소.
 
 ### Deployment
 
-- replicas 기준 Pod 수 유지
-- 장애 발생 시 재생성
-- 이미지 변경 시 롤링 업데이트 적용
+- replicas 기준 Pod 수 유지, 원하는 상태를 선언하는 관리자 역할
+- 장애 발생 시 ReplicaSet 을 통해 자동으로 Pod 재생성 (self-healing)
+- 이미지 변경 시 롤링 업데이트 적용으로 무중단 배포 가능
 - 실제로는 ReplicaSet 을 통해 Pod 를 유지하므로, Deployment 는 원하는 상태를 선언하는 관리자에 가깝다.
 
 ### Service
 
 - Pod 교체와 무관한 고정 접근 지점 제공
-- ClusterIP: 클러스터 내부 통신
-- NodePort: 외부 접근 실습
+- ClusterIP: 클러스터 내부 통신, NodePort: 외부 접근으로 용도별 선택 가능
+- Service 이름으로 DNS 자동 등록되어 Pod 이름이나 IP 변경과 무관하게 안정적 통신
 - Pod IP 는 바뀔 수 있으므로, 애플리케이션 간 통신은 Pod 주소보다 Service 이름 기준으로 보는 편이 훨씬 안정적이다.
 
 ```text
