@@ -72,6 +72,7 @@ Spring Boot, MySQL, Kubernetes, AWS 배포 구성을 정리한 저장소.
 - replicas 기준 Pod 수 유지
 - 장애 발생 시 재생성
 - 이미지 변경 시 롤링 업데이트 적용
+- 실제로는 ReplicaSet 을 통해 Pod 를 유지하므로, Deployment 는 원하는 상태를 선언하는 관리자에 가깝다.
 
 ### Service
 
