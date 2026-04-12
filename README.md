@@ -62,10 +62,11 @@ Spring Boot, MySQL, Kubernetes, AWS 배포 구성을 정리한 저장소.
 
 ### Pod
 
-- 컨테이너 실행 기본 단위
+- 컨테이너 실행 기본 단위, 하나 이상의 컨테이너를 감싸는 가장 작은 배포 단위
 - 네트워크, 스토리지 네임스페이스 공유
 - Nginx, Spring Boot 예제로 구성 확인
 - Pod 는 직접 관리 대상이라기보다 Deployment 같은 상위 리소스로 다루는 흐름이 실무에서 더 자연스럽다.
+- 컨테이너가 떠 있어도 외부 접속이 바로 되는 것은 아니며, describe, logs, exec 는 디버깅의 기본이다.
 
 ### Deployment
 
