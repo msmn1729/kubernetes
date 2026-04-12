@@ -90,9 +90,10 @@ Spring Boot, MySQL, Kubernetes, AWS 배포 구성을 정리한 저장소.
 
 ### ConfigMap / Secret
 
-- ConfigMap: 일반 설정값 관리
-- Secret: 계정, 비밀번호, 토큰 관리
-- Spring Boot 환경 변수 주입 구조 적용
+- ConfigMap: 일반 설정값 관리, 애플리케이션 코드와 환경 값 분리
+- Secret: 계정, 비밀번호, 토큰 같은 민감값 관리 및 암호화 저장
+- Pod는 환경 변수 또는 파일 마운트 방식으로 ConfigMap과 Secret 값을 주입받음
+- Spring Boot 환경 변수 주입 구조 적용으로 설정 관리 자동화
 
 ### PV / PVC
 
