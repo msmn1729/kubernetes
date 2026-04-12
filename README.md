@@ -65,6 +65,7 @@ Spring Boot, MySQL, Kubernetes, AWS 배포 구성을 정리한 저장소.
 - 컨테이너 실행 기본 단위
 - 네트워크, 스토리지 네임스페이스 공유
 - Nginx, Spring Boot 예제로 구성 확인
+- Pod 는 직접 관리 대상이라기보다 Deployment 같은 상위 리소스로 다루는 흐름이 실무에서 더 자연스럽다.
 
 ### Deployment
 
