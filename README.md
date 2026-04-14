@@ -53,8 +53,8 @@ Spring Boot, MySQL, Kubernetes, AWS 배포를 공부하며 정리한 저장소.
 | ConfigMap | 일반 설정값 분리 | `kubernetes-manifests/`, `demo/` |
 | Secret | 비밀번호 같은 민감값 분리 | `kubernetes-manifests/`, `demo/` |
 | ServiceAccount (SA) | 파드가 쿠버네티스 API를 쓸 때 사용하는 계정 | `study/` |
-| CRD | 클러스터에 새 리소스 종류를 등록하는 설정 | `study/` |
-| CR | CRD로 만든 실제 리소스 데이터 | `study/` |
+| Role / ClusterRole | 네임스페이스 범위 또는 클러스터 범위 권한 정의 | `study/` |
+| RoleBinding / ClusterRoleBinding | 정의한 권한을 주체에 연결 | `study/` |
 | PV / PVC | 저장 공간 연결 | `mysql-project/` |
 | Docker 이미지 | 애플리케이션 포장 단위 | `kubernetes-backend/` |
 | ECR | Docker 이미지 저장소 | `kubernetes-backend/`, `study/` |
@@ -108,33 +108,31 @@ Spring Boot, MySQL, Kubernetes, AWS 배포를 공부하며 정리한 저장소.
 - ServiceAccount 만 만든다고 권한이 생기지는 않고, `Role`, `RoleBinding` 같은 RBAC 과 연결돼야 한다.
 - Ingress Controller 나 cert-manager 같은 도구가 API 서버를 읽고 쓸 때도 이 계정을 사용한다.
 
-### CRD
+### Role / ClusterRole
 
-- CRD 는 `CustomResourceDefinition` 의 줄임말이다.
-- 기본 리소스 말고도 새로운 리소스 종류를 클러스터에 추가할 때 쓴다.
-- 쉽게 말해 Kubernetes 에 새로운 `Kind` 를 등록하는 설정이다.
-- CRD 에 필드 규칙을 넣어 두면 잘못된 값이 들어오는 걸 더 빨리 막을 수 있다.
-- 다만 CRD 만 만든다고 바로 동작하는 건 아니고, 이를 보고 움직이는 컨트롤러나 오퍼레이터가 같이 있어야 한다.
+- `Role`은 특정 네임스페이스 안에서만 유효한 권한 묶음이다.
+- `ClusterRole`은 클러스터 전체 범위에서 재사용 가능한 권한 묶음이다.
+- 파드 조회처럼 여러 네임스페이스를 볼 수 있어야 하거나 `nodes` 같은 클러스터 리소스를 다뤄야 하면 `ClusterRole`이 필요하다.
+- 반대로 앱이 자기 네임스페이스 안의 `pods`, `configmaps`, `secrets`만 다루면 `Role`로 시작하는 편이 안전하다.
 
-### CR
+### RoleBinding / ClusterRoleBinding
 
-- CR 은 `Custom Resource` 의 줄임말이다.
-- CRD 로 만든 리소스 종류를 실제로 하나 생성한 객체가 CR 이다.
-- CRD 가 양식이라면 CR 은 그 양식에 맞게 실제로 작성한 데이터라고 보면 된다.
-- 예를 들어 `Certificate`, `Kafka`, `Prometheus` 같은 리소스를 만들 때 이 개념이 자주 나온다.
-- 보통 CR 에 원하는 상태를 적어 두면, 컨트롤러나 오퍼레이터가 그걸 읽고 실제 리소스를 만들어 준다.
+- `RoleBinding`은 권한을 특정 네임스페이스 안에 묶는다.
+- `ClusterRoleBinding`은 권한을 클러스터 전체 범위로 묶는다.
+- 중요한 점은 `RoleBinding`도 `ClusterRole`을 참조할 수 있지만, 실제 권한 범위는 해당 네임스페이스로 제한된다는 점이다.
+- 같은 `ClusterRole`이라도 `RoleBinding`으로 묶느냐 `ClusterRoleBinding`으로 묶느냐에 따라 최종 권한 범위가 달라진다.
 
 ```text
-CRD(새 리소스 타입 정의)
+ServiceAccount
         |
         v
-CR(실제 객체 생성)
+Role 또는 ClusterRole
         |
         v
-Controller / Operator 가 감시
+RoleBinding 또는 ClusterRoleBinding
         |
         v
-Deployment / StatefulSet / Service / Secret 같은 실제 리소스 생성
+Kubernetes API 접근 권한 부여
 ```
 
 ### PV / PVC
@@ -184,7 +182,10 @@ kubectl apply -f kubernetes-manifests/
 kubectl get pods
 kubectl get svc
 kubectl get sa
-kubectl get crd
+kubectl get role -A
+kubectl get rolebinding -A
+kubectl get clusterrole
+kubectl get clusterrolebinding
 kubectl logs <pod-name>
 ```
 
@@ -202,4 +203,4 @@ kubectl get svc
 - Spring Boot 와 MySQL 연결은 앱 설정, Kubernetes 리소스, 네트워크를 같이 봐야 이해가 된다.
 - 로컬 실습에서는 NodePort 로 바깥 접속 흐름을 보고, 내부 통신은 Service 이름으로 보는 방식이 가장 쉽다.
 - ServiceAccount 는 "누가 API 를 쓰는가", Role/Binding 은 "어디까지 할 수 있는가"로 보면 정리가 잘 된다.
-- CRD 는 리소스 종류 정의, CR 은 실제 데이터, 컨트롤러/오퍼레이터는 실제 상태를 맞추는 역할이라고 보면 된다.
+- 같은 `ClusterRole`도 `RoleBinding`으로 묶으면 네임스페이스 범위, `ClusterRoleBinding`으로 묶으면 클러스터 범위가 된다.

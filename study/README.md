@@ -14,6 +14,8 @@
 | 6 | `06-ec2-k3s-nginx.md` | EC2, k3s, Nginx 배포 |
 | 7 | `07-spring-rds-ecr-k3s.md` | ECR, RDS, Spring Boot 배포 |
 | 8 | `08-eks-basics.md` | EKS 구조, 워커 노드, 로컬 연동 |
+| 9 | `09-monthly-kubernetes-summary.md` | 지금까지 학습한 흐름 요약 |
+| 10 | `10-rbac-clusterrole-clusterrolebinding.md` | RBAC, ServiceAccount, ClusterRole, ClusterRoleBinding |
 
 ## 사용 방식
 
